@@ -15,8 +15,10 @@ headers ={
 	"upgrade-insecure-requests": "1"
 	}
 
-response   = session.get('https://twitter.com/',headers = headers, allow_redirects = True)
+response   = session.get('https://twitter.com/',headers = headers, allow_redirects = False)
 soup       = Beautifulsoup(response.text,"lxml")
 auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('Value')
 
 print("authenticity_token: "+auth_token)
+print("HTTPステータスコード: " )
+print(response.status_code)
