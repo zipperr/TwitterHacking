@@ -37,13 +37,13 @@ def login(self):
 		}
 
 # authenticity_token値の取得
-	try:
-		response   = session.get('https://twitter.com/',headers = headers, allow_redirects = False)
-		soup       = Beautifulsoup(response.text,"lxml")
-		auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('Value')
-	except ConnectionError:
-		print("[*]Twitterへ接続できません")
-		sys.exit() 
+try:
+	response   = session.get('https://twitter.com/',headers = headers, allow_redirects = False)
+	soup       = Beautifulsoup(response.text,"lxml")
+	auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('Value')
+except ConnectionError:
+	print("[*]Twitterへ接続できません")
+	sys.exit() 
 
 	#authenticity_tokenをpayloadに設定
 	payload['authenticity_token'] = auth_token
@@ -52,14 +52,14 @@ def login(self):
 	#パスワードをpayloadに設定
 	payload['session[password]'] = self.password
 
-	#twitterにログイン
-	try:
-		login =session.post('https://twitter.com/session', headers=headers, data=payload, allow_redirects=False)
-		if login.status_code == 302:
-			print("[+] ログイン完了 HTTPステータスコード: ")
-			print(login.status_code)
-		except:
-			print("[+] ログイン中に通信エラー")
+#twitterにログイン
+try:
+	login =session.post('https://twitter.com/session', headers=headers, data=payload, allow_redirects=False)
+	if login.status_code == 302:
+		print("[+] ログイン完了 HTTPステータスコード: ")
+		print(login.status_code)
+except:
+	print("[+] ログイン中に通信エラー")
 
 if __name__ == '__main__':
 	TwiLogin = Twitterlogin()
