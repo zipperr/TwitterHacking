@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup #HTML整形ツール
+from bs4 import BeautifulSoup
 from requests.excecations import ConnectionError
 import requests, sys
 
@@ -18,7 +18,7 @@ def tweet(self):
 		session = requests.Session()
 		headers ={
 			"User-Agent":                "Mozilla/5.0",
-			"accept":                    "test/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+			"accept":                    "test/html,application/xhtml+xml,application/xml;",
 			"accept-language":           "ja,en-US;q=0.8,en;q=0.6",
 			"content-type":              "application/x-www-form-urlencoded",
 			"origin":                    "https://twitter.com",
@@ -49,7 +49,7 @@ def tweet(self):
 try:
 	response   = session.get('https://twitter.com/',headers = headers, allow_redirects = False)
 	soup       = Beautifulsoup(response.text,"lxml")
-	auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('Value')
+	auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('value')
 except ConnectionError:
 	print("[*]Twitterへ接続できません")
 	sys.exit() 
@@ -65,7 +65,7 @@ except ConnectionError:
 
 #twitterにログイン
 try:
-	login =session.post('https://twitter.com/session', headers=headers, data=payload, allow_redirects=False)
+	login =session.post('https://twitter.com/sessions', headers=headers, data=payload, allow_redirects=False)
 	if login.status_code == 302:
 		print("[+] ログイン完了 HTTPステータスコード: ")
 		print(login.status_code)
@@ -80,10 +80,18 @@ try:
 	tweet = session.post('https://twitter.com/i/tweet/create', data=tweet, allow_redirects=False, headers=headers, cookies=login.cookies)
 	if tweet.status_code == 200:
 		print("[+] ツイート完了 HTTPステータスコード: ")
-		print(login.status_code)
-	else:
-		print("[+] ツイート失敗 HTTPステータスコード: ")
-		print(login.status_code)
+		print(tweet.status_code)
+	elif tweet.status_code == 403:
+		response = session.get('https://twitter.com/アカウント名', headers=headers, allow_redirects=False)
+		soup       = Beautifulsoup(response.text,"lxml")
+		destroy['id'] = soup.find('div', attrs={'class':'stream-container'}).get('data-max-position')
+		dest = session.post('https://twitter.com/i/tweet/destroy', allow_redirects=False,headers=headers, cookies=login.coo)
+		if dest.status_code == 200:
+			print("[+] 重複ツイート削除成功 HTTPステータスコード: ")
+			print(dest.status_code)
+		else:
+			print("[+] 重複ツイート削除失敗 HTTPステータスコード: ")
+			print(dest.status_code)
 except:
 	print("[+] ツイート中に通信エラー")
 
