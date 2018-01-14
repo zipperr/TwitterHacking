@@ -37,12 +37,10 @@ class TwitterTweet:
         "status":"APIを使用していないツイート",
         "tagged_users":""
         }
-        dest = {
+        destroy = {
+        "_method":"DELETE",
         "authenticity_token":"",
-        "is_permalink_page":"false",
-        "place_id":"",
-        "status":"APIを使用していないツイート",
-        "tagged_users":""
+        "id":""
         }
         try:
             response = session.get('https://twitter.com/',headers=headers,allow_redirects=False)
@@ -73,11 +71,20 @@ class TwitterTweet:
             if tweet.status_code ==200:
                 print("[+]ツイート完了 HTTPステータスコード:")
                 print(tweet.status_code)
-            else:
-                print("[+]ツイート失敗 HTTPステータスコード:")
-                print(tweet.status_code)
+            elif tweet.status_code ==403:
+                response = session.get('https://twitter.com/zipperr', headers=headers, allow_redirects=False)
+                soup = BeautifulSoup(response.text,"lxml")
+                destroy['id'] = soup.find('dev', attrs={'class':'stream-container'}).get('data-max-position')
+                dest = session.post("https://twitter.com/i/tweet/destroy",data=destroy,allow_redirects=False,headers=headers,cookies=login.cookies)
+                if dest.status_code == 200:
+                    print("[+]重複ツイート削除成功 HTTPステータスコード:")
+                    print(dest.status_code)
+                else:
+                    print("[+]重複ツイート削除失敗 HTTPステータスコード:")
+                    print(dest.status_code)
         except:
-            print("ツイート中にエラー")
+            "ツイート中に通信エラー"
+
 if __name__ == "__main__":
     TwiTweet = TwitterTweet()
     TwiTweet.tweet()
