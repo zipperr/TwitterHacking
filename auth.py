@@ -1,7 +1,7 @@
 #! /usr/bin/env python
 # -*- coding: utf-8 -*-
 
-from bs4 import BeautifulSoup #HTML整形ツール
+from bs4 import BeautifulSoup
 import requests
 
 session = requests.Session()
@@ -16,7 +16,7 @@ headers ={
 	}
 
 response   = session.get('https://twitter.com/',headers = headers, allow_redirects = True)
-soup       = Beautifulsoup(response.text,"lxml")
-auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('Value')
+soup       = BeautifulSoup(response.text,"lxml")
+auth_token = soup.find(attrs= {'name': 'authenticity_token'}).get('value')
 
-print("authenticity_token: "+auth_token)
+print "authenticity_token: " + auth_token
