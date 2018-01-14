@@ -34,7 +34,7 @@ class TwitterTweet:
         "authenticity_token":"",
         "is_permalink_page":"false",
         "place_id":"",
-        "status":"APIを使用していないツイート",
+        "status":"test",
         "tagged_users":""
         }
         try:
