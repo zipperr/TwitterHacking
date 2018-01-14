@@ -21,57 +21,57 @@ class TwitterCreateAccount:
 
 	#Twitterに送信するメールアドレスの作成
 	def mail(self):
-		source_str = 'abcdefghijklmnopqrstuvwyz1234567890'
-		username = "r00t" + "".join([random.choice(source_str) for x in xrange(8)])
-		domain = "r00t" + "".join([random.choice(source_str) for x in xrange(8)])
-		mail = username + "@" + domain + ".com"
+		source_str      = 'abcdefghijklmnopqrstuvwyz1234567890'
+		username        = "r00t"   + "".join([random.choice(source_str) for x in xrange(8)])
+		domain          = "r00t"   + "".join([random.choice(source_str) for x in xrange(8)])
+		mail            = username + "@" + domain + ".com"
 		self.screenname = username
 		return mail
 
 	def main(self):
 		#新規アカウント作成POST送信のリクエスト
 		payload = {
-			"authenticity_token": "", 
-			"signup_ui_metrics": '{"rf":{""}', 
-			"user[name]": "", 
-			"user[email]": "", 
-			"user[user_password]": "新規アカウントのパスワード", 
-			"asked_cookie_personalization_setting": "1", 
-			"ad_ref": "", 
-			"user[discoverable_by_email]": "1", 
-			"asked_discoverable_by_email": "1", 
-			"user[discoverable_by_mobile_phone]": "1", 
-			"asked_discoverable_by_mobile_phone": "1"
+			"authenticity_token":                   "",
+			"signup_ui_metrics":                    '{"rf":{""}',
+			"user[name]":                           "",
+			"user[email]":                          "",
+			"user[user_password]":                  "新規アカウントのパスワード",
+			"asked_cookie_personalization_setting": "1",
+			"ad_ref":                               "",
+			"user[discoverable_by_email]":          "1",
+			"asked_discoverable_by_email":          "1",
+			"user[discoverable_by_mobile_phone]":   "1",
+			"asked_discoverable_by_mobile_phone":   "1"
 		}
 
 		#ツイートPOSTの送信リクエスト
 		tweet ={
 			"authenticity_token": "",
-			"is_permalink_page": "false",
-			"place_id": "",
-			"status": "#zippeer Hello",
-			"tagged_users": ""
+			"is_permalink_page":  "false",
+			"place_id":           "",
+			"status":             "#zippeer Hello",
+			"tagged_users":       ""
 		}
 
 		#フォローPOSTの送信リクエスト
 		tweet ={
 			"authenticity_token": "",
-			"challenges_passed": "false",
-			"handles_challenges": "1", 
-			"user_id": "ユーザーID??????????"
+			"challenges_passed":  "false",
+			"handles_challenges": "1",
+			"user_id":            "ユーザーID??????????"
 		}
 		#お気に入りPOST送信リクエスト
 		fav ={
-			"authenticity_token": "", 
-			"id": "ID?????????????????????", 
-			"tweet_stat_count": "0"
+			"authenticity_token": "",
+			"id":                 "ID?????????????????????",
+			"tweet_stat_count":   "0"
 		}
 
 		#リツイートPOST送信リクエスト
 		retweet = {
-			"authenticity_token": "", 
-			"id": "ID?????????????????????", 
-			"tweet_stat_count": "0"
+			"authenticity_token": "",
+			"id":                 "ID?????????????????????",
+			"tweet_stat_count":   "0"
 			}
 
 		#セッション生成
@@ -102,8 +102,8 @@ try:
 	try:
 		#送信リクエスト内容のセット
 		payload['authenticity_token'] = auth_token
-		payload['user[email]'] = self.mail()
-		payload['user[name]'] = self.getScreenName()
+		payload['user[email]']        = self.mail()
+		payload['user[name]']         = self.getScreenName()
 		#アカウント生成リクエスト送信
 		response = session.post('https://twitter.com/account/create', data=payload,  allow_redirects=False, headers=headers)
 		print("[*]新規アカウント生成完了 HTTPステータスコード: ")
@@ -181,8 +181,8 @@ try:
 			print(response.status_code)
 
 	if __name__ == '__main__':
-		TwiACC = TwitterCreateAccount()
-		start = time.time()
+		TwiACC       = TwitterCreateAccount()
+		start        = time.time()
 		TwiACC.main()
 		elapsed_time = time.time() - start
 		print ("elapsed_time:{0}".format(elapsed_time) + "[sec]")
