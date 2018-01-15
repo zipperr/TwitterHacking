@@ -20,20 +20,20 @@ class TwitterCreateAccount:
     #Twitterに送信するメールアドレスの作成
     def mail(self):
         source_str      = "abcdefghijklmnopqrstuvwyz1234567890"
-        username        = "r00t"   + "".join([random.choice(source_str) for x in xrange(8)])
-        domain          = "r00t"   + "".join([random.choice(source_str) for x in xrange(8)])
+        username        = "unkoooo"   + "".join([random.choice(source_str) for x in xrange(8)])
+        domain          = "unkoooo"   + "".join([random.choice(source_str) for x in xrange(8)])
         mail            = username + "@" + domain + ".com"
         self.screenname = username
         return mail
     def main(self):
         payload = {
         "authenticity_token":                   "",
-        "signup_ui_metrics":                    "①",
-        "m_metrics":                            "②",
-        "d_metrics":                            "③",
+        "signup_ui_metrics":                    '{"rf":{"febda18b516cb920a9677c97a37200bf06a75797203c67b3b77cf66bae703528":0,"e90cff83c8ac70e3fe5f93d3fdcfe81b1f16eefb6432341e2ca939888bffda81":-1,"d9fbce8a7838810d9655a09e1582dfb5544c77abf1e558def53a66897c9a60a0":1,"a33dd25f14f79eb9b8a5d86b7ae34fd3ab3b7645fd207771c16ad6e25cfb701b":1},"s":"cbBwVUAJJ_FCVdPszUrInfOMyM4B0Vzk03E4KNN1XvhO55ZhmdlyMGgQrLoZOdtNjL7fS6U5QZVJ_nUROQVazME6-Zbe7lL3MRwQqIm9gJN5AUEz9qJpmBnhHcY69Lxx5T6uz1s0PU2CqIcSVItHlXtf3BYZO7L2TBzjdIketanQktwPAM-SzVNqWCg1rCcPGmp2aSKPvMmLmaPOIeJFbRxyMcdllDZX6AWr7jYQcUY80GxqxadswOuqMXJuXGwhF_K_ZeRm2_LlcfgOH0unzu8M91T3C29ry5IloOmTGWxGC4RkUgbCS7sUgDKm2ro7BwOjy7x9r1x0oxNF815lRAAAAWD5jFl2"}',
+        "m_metrics":                            "TxudD2kAkGwAIxtpD0QAomwA/xooD0oAsmwA4RoODycAw2wAyxr0DiIA1GwAvRrnDhMA5WwApxrnDhYA9WwAmBrnDg8ABW0AkRrnDgcAFm0AghrnDg8AJm0AdBraDhMAN20AZRraDg8ASG0AkwLaCwIYoXIIqQLaCxYAsnII3ALaCzMAvXIIjAPaC7AA13II3AMBDFkA3nIIfQR2DMcA7nIIJgXrDM0A/3IIlAVgDaAACXMI:Xh0WBXoB8QMAgx2UBx0AdBcAHBx/DiYRzDgA0x1/C3QDhU4A8wXnCAMYzVIAxBthEOETGmsAkwLaCwIYoXII",
+        "d_metrics":                            "AABQRigjfgAAAABQRigjY0kCAABQRigjFrECAABQRigji3AIAABQRigj994J:AABQRigjY0kCAABQRigjFrECAABQRigji3AIAABQRigj994J",
         "user[name]":                           "",
         "user[email]":                          "",
-        "user[user_password]":                  "新規アカウントのパスワード",
+        "user[user_password]":                  "passwd",
         "asked_cookie_personalization_setting": "1",
         "ad_ref":                               "",
         "user[discoverable_by_email]":          "1",
@@ -52,16 +52,16 @@ class TwitterCreateAccount:
         "authenticity_token": "",
         "challenges_passed":  "false",
         "handles_challenges": "1",
-        "user_id":            "ユーザーID??????????"
+        "user_id":            "1304509088"
         }
         fav = {
         "authenticity_token": "",
-        "id":                 "ID?????????????????????",
+        "id":                 "952210691749892097",
         "tweet_stat_count":   "0"
         }
         retweet = {
         "authenticity_token": "",
-        "id":                 "ID?????????????????????",
+        "id":                 "952210691749892097",
         "tweet_stat_count":   "0"
         }
         session = requests.Session()
